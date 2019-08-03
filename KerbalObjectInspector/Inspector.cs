@@ -124,6 +124,16 @@ namespace KerbalObjectInspector
                 GUILayout.BeginHorizontal();
                 GUILayout.Label("[Property] " + pubProperties[i].Name + ": " + (val != null ? val.ToString() : "null"), HighLogic.Skin.label);
                 GUILayout.EndHorizontal();
+
+                UnityEngine.Material materialObject = component.GetType().GetProperty(pubProperties[i].Name, BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy).GetValue(component,null) as UnityEngine.Material;
+
+                if (materialObject != null)
+                {
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Label("[material instance id] " + materialObject.GetInstanceID().ToString());
+                    GUILayout.EndHorizontal();
+                }
+                
             }
 
             if (pubFields.Length == 0 && pubProperties.Length == 0)
